@@ -6,8 +6,6 @@ This serverless application processes job posting requests using AWS Lambda, API
 
 ### 🔄 Flow Overview
 
-````markdown
-
 1. **Receives Job Posting via HTTP API**  
    A client sends a POST request to API Gateway with a JSON body:
 
@@ -18,7 +16,6 @@ This serverless application processes job posting requests using AWS Lambda, API
      "company_name": "Tech Corp"
    }
    ```
-````
 
 2. **Sends the Job Data to an SQS Queue**
 
@@ -83,7 +80,7 @@ Replace `https://your-api-endpoint/send` with the actual URL provided by Terrafo
 ```bash
 curl -X POST \
   -H "Content-Type: application/json" \
-  -d '{"job_id": "12345", "job_name": "Software Engineer", "company_name": "Tech Corp"}' \
+  -d '{"job_id": "12345", "job_name": "Software Engineer"}' \
   https://your-api-endpoint/send
 ```
 
