@@ -1,18 +1,66 @@
+Sure! Here's the complete content formatted for a `README.md` file. You can copy and paste this directly into your project’s root directory as `README.md`.
+
+---
+
+````markdown
 # Serverless SQS Application (AWS Lambda + API Gateway + SQS)
 
-This project creates a serverless application where an API Gateway endpoint invokes a Lambda function that sends messages to an SQS queue.
+## 📌 Purpose: Job Post Processing
+
+This serverless application processes job posting requests using AWS Lambda, API Gateway, and SQS. It is designed to demonstrate a decoupled architecture for handling asynchronous job submissions and processing.
+
+### 🔄 Flow Overview
+
+1. **Receives Job Posting via HTTP API**  
+   A client sends a POST request to API Gateway with a JSON body:
+
+   ```json
+   {
+     "job_id": "12345",
+     "job_name": "Software Engineer",
+     "company_name": "Tech Corp"
+   }
+````
+
+2. **Sends the Job Data to an SQS Queue**
+
+   * API Gateway invokes a Lambda function (`sendToSQS`)
+   * This function validates the input and pushes the job data into an Amazon SQS queue
+
+3. **Processes Job Data from the Queue**
+
+   * A second Lambda function (`processSQS`) is triggered automatically when a new message arrives in the queue
+   * It:
+
+     * Extracts `job_id`, `job_name`, and `company_name`
+     * Generates a CSV file containing the job data
+     * Uploads the CSV to an Amazon S3 bucket with a timestamped filename
+
+4. **Stores the File in S3**
+   Files are saved with a path structure like:
+
+   ```
+   s3://your-bucket-name/jobs/job-20250514-153012.csv
+   ```
+
+---
 
 ## 🛠️ Stack
 
-- AWS Lambda
-- API Gateway (HTTP API)
-- Amazon SQS
-- Terraform (IaC)
-- Python 3.9
+* AWS Lambda
+* API Gateway (HTTP API)
+* Amazon SQS
+* Amazon S3
+* Terraform (Infrastructure as Code)
+* Python 3.9
+
+---
 
 ## 🚀 Deployment
 
-1. **Install dependencies**
+Follow these steps to deploy the project using Terraform and Python:
+
+### 1. Install Lambda Dependencies
 
 ```bash
 cd lambda/send_to_sqs
@@ -20,7 +68,7 @@ pip install -r requirements.txt -t .
 cd ../..
 ```
 
-2. **Initialize Terraform**
+### 2. Initialize and Apply Terraform
 
 ```bash
 cd terraform
@@ -28,26 +76,61 @@ terraform init
 terraform apply -auto-approve
 ```
 
-3. **Test the API**
+> Terraform will output the API Gateway URL and other important info after successful deployment.
+
+### 3. Test the API
+
+Replace `https://your-api-endpoint/send` with the actual URL provided by Terraform:
 
 ```bash
 curl -X POST \
   -H "Content-Type: application/json" \
-  -d '{"message": "Hello from my client!"}' \
+  -d '{"job_id": "12345", "job_name": "Software Engineer", "company_name": "Tech Corp"}' \
   https://your-api-endpoint/send
 ```
 
-4. **Check Outputs**
+### 4. Check the S3 Bucket
 
-Terraform will output the API Gateway URL.
+You should see a new CSV file in the configured S3 bucket under the `jobs/` directory with a timestamp in the filename.
+
+---
 
 ## 📦 Notes
 
-- Lambda permissions are restricted to sending messages only to the specific SQS queue.
-- Environment variables are used for dynamic queue URLs.
+* **Security**: Lambda functions follow the principle of least privilege and can only access specific AWS services they need.
+* **Configuration**: Environment variables are used to dynamically manage the SQS queue URL and S3 bucket name.
+* **Reliability**: The decoupled design allows for retry logic, failure handling, and scaling.
+
+---
 
 ## 🔁 Cleanup
 
+To destroy all deployed AWS resources:
+
 ```bash
+cd terraform
 terraform destroy -auto-approve
 ```
+
+---
+
+## 📁 Project Structure
+
+```
+.
+├── lambda
+│   ├── send_to_sqs
+│   │   ├── send_to_sqs.py
+│   │   └── requirements.txt
+│   └── process_sqs
+│       └── process_sqs.py
+├── terraform
+│   └── main.tf
+├── README.md
+```
+
+---
+
+## 📬 Contact
+
+For questions, suggestions, or contributions, feel free to open an issue or create a pull request.
