@@ -1,8 +1,5 @@
-Sure! Here's the complete content formatted for a `README.md` file. You can copy and paste this directly into your project’s root directory as `README.md`.
-
 ---
 
-````markdown
 # Serverless SQS Application (AWS Lambda + API Gateway + SQS)
 
 ## 📌 Purpose: Job Post Processing
@@ -11,6 +8,7 @@ This serverless application processes job posting requests using AWS Lambda, API
 
 ### 🔄 Flow Overview
 
+````markdown
 1. **Receives Job Posting via HTTP API**  
    A client sends a POST request to API Gateway with a JSON body:
 
@@ -18,7 +16,6 @@ This serverless application processes job posting requests using AWS Lambda, API
    {
      "job_id": "12345",
      "job_name": "Software Engineer",
-     "company_name": "Tech Corp"
    }
 ````
 
