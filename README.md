@@ -17,6 +17,7 @@ This serverless application processes job posting requests using AWS Lambda, API
      "job_name": "Software Engineer",
      "company_name": "Tech Corp"
    }
+   ```
 ````
 
 2. **Sends the Job Data to an SQS Queue**
@@ -29,7 +30,7 @@ This serverless application processes job posting requests using AWS Lambda, API
    * A second Lambda function (`processSQS`) is triggered automatically when a new message arrives in the queue
    * It:
 
-     * Extracts `job_id`, `job_name`, and `company_name`
+     * Extracts `job_id` and `job_name`.
      * Generates a CSV file containing the job data
      * Uploads the CSV to an Amazon S3 bucket with a timestamped filename
 
