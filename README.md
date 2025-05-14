@@ -1,5 +1,6 @@
 ---
 
+````markdown
 # Serverless SQS Application (AWS Lambda + API Gateway + SQS)
 
 ## 📌 Purpose: Job Post Processing
@@ -8,7 +9,6 @@ This serverless application processes job posting requests using AWS Lambda, API
 
 ### 🔄 Flow Overview
 
-````markdown
 1. **Receives Job Posting via HTTP API**  
    A client sends a POST request to API Gateway with a JSON body:
 
@@ -16,6 +16,7 @@ This serverless application processes job posting requests using AWS Lambda, API
    {
      "job_id": "12345",
      "job_name": "Software Engineer",
+     "company_name": "Tech Corp"
    }
 ````
 
@@ -131,3 +132,5 @@ terraform destroy -auto-approve
 ## 📬 Contact
 
 For questions, suggestions, or contributions, feel free to open an issue or create a pull request.
+
+---
