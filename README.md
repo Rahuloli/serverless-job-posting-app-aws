@@ -1,6 +1,3 @@
----
-
-````markdown
 # Serverless SQS Application (AWS Lambda + API Gateway + SQS)
 
 ## 📌 Purpose: Job Post Processing
@@ -8,6 +5,8 @@
 This serverless application processes job posting requests using AWS Lambda, API Gateway, and SQS. It is designed to demonstrate a decoupled architecture for handling asynchronous job submissions and processing.
 
 ### 🔄 Flow Overview
+
+````markdown
 
 1. **Receives Job Posting via HTTP API**  
    A client sends a POST request to API Gateway with a JSON body:
