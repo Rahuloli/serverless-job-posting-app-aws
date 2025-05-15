@@ -12,8 +12,7 @@ This serverless application processes job posting requests using AWS Lambda, API
    ```json
    {
      "job_id": "12345",
-     "job_name": "Software Engineer",
-     "company_name": "Tech Corp"
+     "job_name": "Software Engineer"
    }
    ```
 
